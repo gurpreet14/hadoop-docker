@@ -61,10 +61,10 @@ RUN echo "export YARN_LOG_DIR=\"/hadoop/hadoop/logs\"\n$(cat /hadoop/hadoop/etc/
 RUN echo >> 'master' $HADOOP_HOME/hadoop/etc/hadoop/master
 RUN mkdir /hadoop_tmp/hdfs
 RUN mkdir /hadoop_tmp/hdfs/namenode
-ADD core-site.xml $HADOOP_HOME/hadoop/etc/hadoop/core-site.xml
-ADD hdfs-site.xml $HADOOP_HOME/hadoop/etc/hadoop/hdfs-site.xml
-ADD yarn-site.xml $HADOOP_HOME/hadoop/etc/hadoop/yarn-site.xml
-ADD mapred-site.xml $HADOOP_HOME/hadoop/etc/hadoop/mapred-site.xml 
+COPY core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml
+COPY hdfs-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml
+COPY yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml
+COPY mapred-site.xml $HADOOP_HOME/etc/hadoop/mapred-site.xml 
 #RUN cat find / -name “start-yarn.sh”
 #RUN bash start-yarn.sh 
 RUN find . -type d -exec ./start-dfs.sh {} \;

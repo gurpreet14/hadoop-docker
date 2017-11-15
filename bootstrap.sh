@@ -15,6 +15,7 @@ cd $HADOOP_HOME/share/hadoop/common ; for cp in ${ACP//,/ }; do  echo == $cp; cu
 
 service ssh start
 echo "127.0.0.1 master" >> /etc/hosts 
+printf "Host master\n\tStrictHostKeyChecking no\n\t UserKnownHostsFile=/dev/null\n Host localhost\n\tStrictHostKeyChecking no\n\t UserKnownHostsFile=/dev/null\nHost 0.0.0.0\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile=/dev/null" >> /etc/ssh/ssh_config
 $HADOOP_HOME/bin/hdfs namenode -format
 $HADOOP_HOME/sbin/start-dfs.sh
 $HADOOP_HOME/sbin/yarn-daemon.sh start nodemanager
