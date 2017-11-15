@@ -1,7 +1,7 @@
 from armv7/armhf-ubuntu
 USER root
 RUN apt-get update && apt-get install -y apt-utils
-RUN apt-get install -y curl tar sudo openssh-server openssh-client rsync libselinux1
+RUN apt-get install -y curl nano tar sudo openssh-server openssh-client rsync libselinux1
 
 RUN apt-get update    
 RUN mkdir /hadoop
@@ -43,7 +43,7 @@ ENV YARN_LOG_DIR /hadoop/hadoop/logs
 
 
 RUN cd /hadoop
-RUN ls
+#RUN ls
 #RUN wget http://www.us.apache.org/dist/hadoop/common/hadoop-2.8.2/hadoop-2.8.2.tar.gz
 #RUN curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-2.8.2/hadoop-2.8.2.tar.gz | tar -xz -C /usr/local/
 #RUN wget http://www.eu.apache.org/dist/hadoop/common/hadoop-2.8.2/hadoop-2.8.2.tar.gz | tar -xz -C /usr/local/
@@ -67,7 +67,7 @@ COPY yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml
 COPY mapred-site.xml $HADOOP_HOME/etc/hadoop/mapred-site.xml 
 #RUN cat find / -name “start-yarn.sh”
 #RUN bash start-yarn.sh 
-RUN find . -type d -exec ./start-dfs.sh {} \;
+#RUN find . -type d -exec ./start-dfs.sh {} \;
 #RUN $HADOOP_HOME/hadoop/bin/start-yarn.sh
 #RUN $HADOOP_HOME/hadoop/bin/start-dfs.sh
 #RUN $HADOOP_HOME/bin/hdfs namenode -format
