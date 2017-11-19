@@ -64,10 +64,15 @@ RUN mkdir /hadoop_tmp/hdfs/namenode
 COPY core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml
 COPY hdfs-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml
 COPY yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml
-COPY mapred-site.xml $HADOOP_HOME/etc/hadoop/mapred-site.xml 
+COPY mapred-site.xml $HADOOP_HOME/etc/hadoop/mapred-site.xml
+
+RUN mkdir $HADOOP_HOME/input
+COPY input/ $HADOOP_HOME/input/
+COPY mapreduce-all.jar $HADOOP_HOME
+ 
 #RUN cat find / -name “start-yarn.sh”
 #RUN bash start-yarn.sh 
-RUN find . -type d -exec ./start-dfs.sh {} \;
+#RUN find . -type d -exec ./start-dfs.sh {} \;
 #RUN $HADOOP_HOME/hadoop/bin/start-yarn.sh
 #RUN $HADOOP_HOME/hadoop/bin/start-dfs.sh
 #RUN $HADOOP_HOME/bin/hdfs namenode -format

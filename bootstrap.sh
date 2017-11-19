@@ -11,6 +11,7 @@ cd $HADOOP_HOME/share/hadoop/common ; for cp in ${ACP//,/ }; do  echo == $cp; cu
 
 # altering the core-site configuration
 #sed s/HOSTNAME/$HOSTNAME/ /usr/local/hadoop/etc/hadoop/core-site.xml.template > /usr/local/hadoop/etc/hadoop/core-site.xml
+#sed -i "s/master/$HOSTNAME/" /hadoop/hadoop/etc/hadoop/core-site.xml
 
 
 service ssh start
@@ -22,19 +23,23 @@ $HADOOP_HOME/sbin/yarn-daemon.sh start nodemanager
 $HADOOP_HOME/sbin/yarn-daemon.sh start resourcemanager
 
 
-$HADOOP_HOME/bin/hdfs dfs -mkdir /wordcount
+#$HADOOP_HOME/bin/hdfs dfs -mkdir /hw2
 
-$HADOOP_HOME/bin/hdfs dfs -mkdir /wordcount/input
+#$HADOOP_HOME/bin/hdfs dfs -mkdir /input
 
-echo  "hello hello  hi hi hi " >> $HADOOP_HOME/bin/input1.txt
+#echo  "hello hello  hi hi hi " >> $HADOOP_HOME/bin/input1.txt
 
-$HADOOP_HOME/bin/hdfs dfs -copyFromLocal $HADOOP_HOME/bin/input1.txt  /wordcount/input/input1.txt
+#$HADOOP_HOME/bin/hdfs dfs -copyFromLocal $HADOOP_HOME/bin/input1.txt  /wordcount/input/input1.txt
 
-$HADOOP_HOME/bin/hadoop jar /hadoop/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.8.2.jar wordcount /wordcount/input output
+$HADOOP_HOME/bin/hadoop fs -copyFromLocal $HADOOP_HOME/input /
 
-if [[ $1 == "-d" ]]; then
-  while true; do sleep 1000; done
-fi
+$HADOOP_HOME/bin/hadoop jar $HADOOP_HOME/mapreduce-all.jar /input output
+
+$HADOOP_HOME/bin/hdfs dfs -cat /user/root/output/final/part-r-00000
+
+#if [[ $1 == "-d" ]]; then
+#  while true; do sleep 1000; done
+#fi
 
 if [[ $1 == "-bash" ]]; then
   /bin/bash
